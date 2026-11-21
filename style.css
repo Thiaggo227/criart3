@@ -1,0 +1,1672 @@
+/* ==========================================================
+   1. VARIÁVEIS GLOBAIS & RESET
+   ========================================================== */
+   :root {
+    --cor-primaria: #ba0000;
+    --cor-primaria-escura: #800f2f;
+    --gradiente-destaque: linear-gradient(135deg, #ff4d6d 0%, #c9184a 50%, #800f2f 100%);
+    --gradiente-linha: linear-gradient(to right, #ba0000 0%, rgba(186, 0, 0, 0.1) 80%, transparent 100%);
+    --cor-texto-principal: #1f2937;
+    --cor-texto-secundario: #4b5563;
+    --cor-fundo-suave: #f8fafc;
+    --cor-whatsapp: #25d366;
+    --cor-whatsapp-hover: #1ea450;
+    --sombra-suave: 0 6px 20px rgba(0, 0, 0, 0.06);
+    --sombra-elevada: 0 15px 35px rgba(0, 0, 0, 0.15);
+    --transicao-padrao: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(to bottom, #ffffff, #ededed);
+    color: var(--cor-texto-principal);
+    overflow-x: hidden;
+}
+
+strong {
+    color: #000000;
+}
+
+/* ==========================================================
+   2. HEADER & NAVEGAÇÃO DESKTOP
+   ========================================================== */
+header {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    top: 12px;
+    left: 24px;
+    right: 24px;
+    z-index: 1000;
+    padding: 15px 28px;
+}
+
+.logoImg img {
+    height: 38px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    display: block;
+}
+
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    z-index: 1000;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-elements {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.logo-menu-mobile {
+    display: none;
+}
+
+.menu {
+    background-color: rgba(176, 176, 176, 0.18);
+    padding: 12px 24px;
+    border-radius: 30px;
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #111;
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+}
+
+.menu li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--cor-primaria);
+    transition: width 0.3s ease;
+}
+
+.menu li a.ativo::after,
+.menu li a:hover::after {
+    width: 100%;
+}
+
+.menu li a:hover,
+.menu li a.ativo {
+    color: var(--cor-primaria);
+}
+
+/* Campo de Busca Desktop */
+.busca-container {
+    position: relative;
+    width: 240px;
+}
+
+.inputBusca {
+    width: 100%;
+    padding: 9px 40px 9px 16px;
+    font-size: 14px;
+    color: #111;
+    background-color: #f9f9f9;
+    border: 2px solid rgba(36, 36, 36, 0.35);
+    border-radius: 30px;
+    outline: none;
+    transition: var(--transicao-padrao);
+}
+
+.inputBusca:focus {
+    border-color: var(--cor-primaria);
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(186, 0, 0, 0.15);
+}
+
+.inputBusca::placeholder {
+    color: #888;
+}
+
+.busca-container i {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #222;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.busca-container i:hover {
+    color: var(--cor-primaria);
+}
+
+.btnAgent {
+    background: var(--gradiente-destaque);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transicao-padrao);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnAgent:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(201, 24, 74, 0.35);
+}
+
+/* ==========================================================
+   3. AÇÕES MOBILE & MENU HAMBÚRGUER EM SPANS
+   ========================================================== */
+.header-actions-mobile {
+    display: none;
+    align-items: center;
+    gap: 14px;
+}
+
+.btn-busca-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #242424;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-busca-mobile:active {
+    background-color: #f3f4f6;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1002;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #000000;
+    transition: all 0.3s ease-in-out;
+    transform-origin: center;
+}
+
+body:has(.nav-elements.active) .menu-toggle span:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+}
+
+body:has(.nav-elements.active) .menu-toggle span:nth-child(2) {
+    transform: translateY(-5px) rotate(-45deg);
+}
+
+/* ==========================================================
+   ANIMAÇÃO FADE IN PROFISSIONAL PARA OS CARDS
+   ========================================================== */
+.card-fade-in {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.card-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================
+   4. CARROSSÉIS INTRODUTÓRIOS (BANNERS)
+   ========================================================== */
+.carrosselIntro {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    max-width: none;
+    height: 650px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    border-radius: 0;
+}
+
+.carrosselIntro img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.9s ease-in-out;
+    z-index: 1;
+}
+
+.carrosselIntro img.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.carrosselIntroS,
+.carrosselSecundario {
+    margin-top: 60px;
+    position: relative;
+    width: 100%;
+    height: 300px; /* Altura reduzida para o responsivo */
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+}
+
+.carrosselIntroS img,
+.carrosselSecundario img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.9s ease-in-out;
+    z-index: 1;
+}
+
+.carrosselIntroS img.active,
+.carrosselSecundario img.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.btnOrcamento {
+    position: absolute;
+    z-index: 10;
+    bottom: 42px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 30px;
+    padding: 13px 32px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    transition: var(--transicao-padrao);
+}
+
+.btnOrcamento a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 14px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnOrcamento:hover {
+    background: rgba(186, 0, 0, 0.85);
+    border-color: transparent;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+.dots-container {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    transition: var(--transicao-padrao);
+}
+
+.dot.active {
+    background-color: #ffffff;
+    transform: scale(1.2);
+}
+
+/* ==========================================================
+   5. CABEÇALHOS DE SEÇÃO & SELETORES DE CATEGORIA
+   ========================================================== */
+.header-medalhas-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+    gap: 15px;
+}
+
+.textMedalha h1,
+.textTrofeu h1,
+.container-tacas-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cor-texto-principal);
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.textMedalha h1 i { color: #d4af37; }
+.textTrofeu h1 i { color: #f59e0b; }
+
+.medalhas-seletor {
+    display: flex;
+    gap: 18px;
+}
+
+.btn-filtro-medalha,
+.btn-filtro-trofeu {
+    background-color: transparent;
+    border: none;
+    color: #6b7280;
+    padding: 6px 4px 10px 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.btn-filtro-medalha:hover,
+.btn-filtro-trofeu:hover {
+    color: #111827;
+}
+
+.btn-filtro-medalha.ativa,
+.btn-filtro-trofeu.ativa {
+    color: var(--cor-primaria);
+}
+
+.btn-filtro-medalha.ativa::after,
+.btn-filtro-trofeu.ativa::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: -13px;
+    left: 0;
+    background: var(--gradiente-destaque);
+    border-radius: 3px;
+}
+
+/* ==========================================================
+   6. SEÇÃO DE MEDALHAS (CARROSSEL 3D E GRID)
+   ========================================================== */
+.containerMedalha-section {
+    margin: 90px auto;
+    width: 100%;
+    max-width: 1310px; /* <-- Adicione esta linha */
+    padding: 0 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.containerMedalha-section::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14vw;
+    font-weight: 900;
+    color: rgba(186, 0, 0, 0.03);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+    letter-spacing: 10px;
+    font-family: 'Zalando Sans Expanded', sans-serif;
+}
+
+.carrossel-3d-wrapper {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    z-index: 2;
+    margin: 30px 0;
+}
+
+.carrossel-3d-track {
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+.carrossel-3d-item {
+    position: absolute;
+    width: 260px;
+    height: 360px;
+    background: #fff;
+    border: 1px solid rgba(229, 231, 235, 0.8);
+    border-radius: 5px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 15px 35px #00000036;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.6s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.carrossel-3d-item img {
+    width: 200px;
+    height: 190px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+    transition: transform 0.4s ease;
+}
+
+.carrossel-3d-item:hover img {
+    transform: scale(1.08);
+}
+
+.carrossel-3d-info {
+    text-align: center;
+    width: 100%;
+}
+
+.carrossel-3d-info h4 {
+    text-align: left;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--cor-texto-principal);
+    margin-bottom: 6px;
+}
+
+.carrossel-3d-info p {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--cor-texto-secundario);
+}
+
+.carrossel-3d-controls {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    width: 280px;
+    margin: 20px auto 0 auto;
+    z-index: 10;
+}
+
+.carrossel-3d-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #d1d5db;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #111;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: var(--transicao-padrao);
+}
+
+.carrossel-3d-btn:hover {
+    background: var(--cor-primaria);
+    color: #fff;
+    border-color: var(--cor-primaria);
+}
+
+.carrossel-3d-dots {
+    display: none !important;
+}
+
+.carrossel-3d-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #d1d5db;
+    cursor: pointer;
+    transition: var(--transicao-padrao);
+}
+
+.carrossel-3d-dot.active {
+    width: 24px;
+    border-radius: 4px;
+    background-color: var(--cor-primaria);
+}
+
+.preco-destaque-central {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #e5e7eb;
+    font-size: 11.5px;
+    font-weight: 400;
+    text-align: left;
+    line-height: 1.5;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.carrossel-3d-item.is-center .preco-destaque-central,
+.carrossel-3d-item.ativa-modal .preco-destaque-central {
+    max-height: 150px;
+    opacity: 1;
+}
+
+.gridMedalhas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.catalogo-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+    width: 100%;
+}
+
+.btn-ver-catalogo {
+    background: var(--gradiente-destaque);
+    color: #ffffff;
+    border: none;
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(201, 24, 74, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transicao-padrao);
+}
+
+.btn-ver-catalogo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(201, 24, 74, 0.45);
+}
+
+.medalha-item {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 15px;
+    box-shadow: var(--sombra-suave);
+    transition: var(--transicao-padrao);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.medalha-item:hover {
+    border-color: var(--cor-primaria);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.medalha-pendurada-img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    display: block;
+    z-index: 3;
+    margin-bottom: -10px;
+    pointer-events: none;
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.2));
+}
+
+.cardMedalha {
+    width: 100%;
+    background: transparent;
+    padding: 15px 10px 10px 10px;
+    border: none;
+    text-align: center;
+}
+
+.cardMedalha h4 {
+    font-size: 12px;
+    color: var(--cor-texto-secundario);
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.cardMedalha h4 strong {
+    color: #111827;
+    font-size: 13px;
+}
+
+/* Modal de Detalhes da Medalha */
+.infoMedalha {
+    display: none;
+    opacity: 0;
+}
+
+.medalha-item.ativa-modal {
+    position: fixed;
+    inset: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    min-width: auto !important;
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: none !important;
+    padding: 20px;
+}
+
+.medalha-item.ativa-modal .medalha-pendurada-img,
+.medalha-item.ativa-modal .cardMedalha {
+    display: none;
+}
+
+.medalha-item.ativa-modal .infoMedalha {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+    text-align: center;
+    position: relative;
+    opacity: 1;
+}
+
+.medalha-item.ativa-modal .infoMedalha img {
+    width: 145px;
+    height: 145px;
+    object-fit: contain;
+    margin: 0 auto 18px auto;
+}
+
+.medalha-item.ativa-modal .info-detalhes-texto {
+    text-align: left;
+}
+
+.medalha-item.ativa-modal .info-detalhes-texto h3 {
+    font-size: 20px;
+    color: #111;
+    margin-bottom: 8px;
+}
+
+.medalha-item.ativa-modal .info-detalhes-texto p {
+    font-size: 13.5px;
+    color: var(--cor-texto-secundario);
+    line-height: 1.55;
+    margin-bottom: 15px;
+}
+
+.btnOrc {
+    margin-top: 10px;
+    text-align: center;
+    padding: 12px 16px;
+    background-color: var(--cor-whatsapp);
+    border-radius: 30px;
+    font-weight: 600;
+    transition: var(--transicao-padrao);
+}
+
+.btnOrc:hover {
+    background-color: var(--cor-whatsapp-hover);
+    transform: translateY(-2px);
+}
+
+.btnOrc a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.btn-fechar-info {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #f3f4f6;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transicao-padrao);
+}
+
+.btn-fechar-info:hover {
+    background: var(--cor-primaria);
+    color: #fff;
+}
+
+/* ==========================================================
+   7. SEÇÃO DE TROFÉUS
+   ========================================================== */
+.containerTrofeu-section {
+    margin: 100px auto;
+    max-width: 1310px;
+    padding: 0 24px;
+}
+
+.gridTrofeus {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.cardTrofeu {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 15px;
+    box-shadow: var(--sombra-suave);
+    transition: var(--transicao-padrao);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardTrofeu:hover {
+    border-color: var(--cor-primaria);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.cardTrofeu img {
+    height: 230px;
+    width: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+.cardTrofeu h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 6px;
+}
+
+.cardTrofeu h4 {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--cor-texto-secundario);
+    line-height: 1.4;
+}
+
+/* ==========================================================
+   8. SEÇÃO DE TAÇAS (SUPABASE)
+   ========================================================== */
+.secao-tacas {
+    padding: 20px 24px;
+    max-width: 1310px;
+    margin: 90px auto;
+}
+
+.container-tacas-header {
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    background: var(--gradiente-linha) no-repeat bottom;
+    background-size: 100% 3px;
+}
+
+.carrosselTacas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.cardTaca {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    box-shadow: var(--sombra-suave);
+    overflow: hidden;
+    transition: var(--transicao-padrao);
+    display: flex;
+    flex-direction: column;
+}
+
+.cardTaca:hover {
+    transform: translateY(-6px);
+    border-color: rgba(186, 0, 0, 0.4);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+}
+
+.taca-img-container {
+    width: 100%;
+    height: 290px;
+    background-color: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.taca-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.35s ease;
+}
+
+.cardTaca:hover .taca-img {
+    transform: scale(1.06);
+}
+
+.cardTaca .taca-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.cardTaca .taca-nome {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+}
+
+.cardTaca .taca-ref {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cor-texto-secundario);
+    text-transform: uppercase;
+}
+
+.cardTaca .taca-altura {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-texto-secundario);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cardTaca .taca-altura i {
+    color: var(--cor-primaria);
+}
+
+.cardTaca .taca-preco {
+    font-size: 17px;
+    font-weight: 800;
+    color: #111;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* ==========================================================
+   9. SEÇÃO SOBRE / HISTÓRIA & RODAPÉ
+   ========================================================== */
+.containerBio {
+    max-width: 1140px;
+    margin: 90px auto;
+    padding: 0 24px;
+}
+
+.cardBio {
+    margin-bottom: 24px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+}
+
+.cardBio img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+.containerBio h1 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 12px;
+}
+
+.containerBio p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--cor-texto-secundario);
+}
+
+.site-footer {
+    background-color: #111827;
+    color: #ffffff;
+    padding: 60px 24px 25px 24px;
+    margin-top: 100px;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+}
+
+.footer-content {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-info h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-family: 'Zalando Sans Expanded', sans-serif;
+}
+
+.footer-info p {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-info p i {
+    color: var(--cor-primaria);
+    font-size: 16px;
+}
+
+.footer-social h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 14px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 18px;
+    text-decoration: none;
+    transition: var(--transicao-padrao);
+}
+
+.social-icons a:hover {
+    background-color: var(--cor-primaria);
+    transform: translateY(-4px);
+}
+
+.footer-bottom {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-top: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* ==========================================================
+   SEÇÃO DE PLACAS - CARROSSEL 3D
+   ========================================================== */
+   .containerPlacas-section {
+    margin: 90px auto;
+    max-width: 1310px; /* <-- Adicione esta linha */
+    width: 100%;
+    padding: 0 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.containerPlacas-section::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14vw;
+    font-weight: 900;
+    color: rgba(186, 0, 0, 0.03);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+    letter-spacing: 10px;
+    font-family: 'Zalando Sans Expanded', sans-serif;
+}
+
+.textPlacas h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cor-texto-principal);
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-filtro-placa {
+    background-color: transparent;
+    border: none;
+    color: #6b7280;
+    padding: 6px 4px 10px 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.btn-filtro-placa:hover {
+    color: #111827;
+}
+
+.btn-filtro-placa.ativa {
+    color: var(--cor-primaria);
+}
+
+.btn-filtro-placa.ativa::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: -13px;
+    left: 0;
+    background: var(--gradiente-destaque);
+    border-radius: 3px;
+}
+
+@media (max-width: 576px) {
+    .containerPlacas-section .medalhas-seletor {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .btn-filtro-placa {
+        flex: 1;
+        text-align: center;
+        font-size: 12.5px;
+    }
+}
+
+/* ==========================================================
+   10. MODAL DE BUSCA
+   ========================================================== */
+.modal-busca-mobile {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-busca-mobile.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-busca-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.modal-busca-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: 100dvh;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    transform: translateY(-15px);
+    transition: transform 0.3s ease;
+}
+
+.modal-busca-mobile.active .modal-busca-content {
+    transform: translateY(0);
+}
+
+.modal-busca-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #ffffff;
+}
+
+.modal-busca-input-box {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.modal-busca-input-box .search-icon {
+    position: absolute;
+    left: 15px;
+    color: #9ca3af;
+    font-size: 15px;
+}
+
+.modal-busca-input-box input {
+    width: 100%;
+    padding: 11px 38px 11px 42px;
+    font-size: 15px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 30px;
+    background-color: #f9fafb;
+    outline: none;
+    transition: var(--transicao-padrao);
+}
+
+.modal-busca-input-box input:focus {
+    border-color: var(--cor-primaria);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(186, 0, 0, 0.12);
+}
+
+.btn-clear-search {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    font-size: 14px;
+    cursor: pointer;
+    display: none;
+    padding: 4px;
+}
+
+.btn-clear-search.visible {
+    display: block;
+}
+
+.btn-fechar-modal {
+    background: #f3f4f6;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: #374151;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transicao-padrao);
+}
+
+.btn-fechar-modal:hover {
+    background-color: var(--cor-primaria);
+    color: #ffffff;
+}
+
+.modal-busca-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.search-results-counter {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.modal-busca-resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-busca-empty {
+    text-align: center;
+    padding: 45px 20px;
+    color: #9ca3af;
+}
+
+.modal-busca-empty i {
+    font-size: 38px;
+    margin-bottom: 12px;
+    color: #d1d5db;
+}
+
+.modal-busca-empty p {
+    font-size: 14px;
+}
+
+.modal-result-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: var(--transicao-padrao);
+}
+
+.modal-result-card:hover {
+    border-color: var(--cor-primaria);
+    box-shadow: var(--sombra-suave);
+}
+
+.modal-result-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 4px;
+    flex-shrink: 0;
+}
+
+.modal-result-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.modal-result-category {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--cor-primaria);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+}
+
+.modal-result-info h4 {
+    font-size: 14px;
+    color: #111827;
+    font-weight: 700;
+    margin-bottom: 4px;
+    white-space: normal;
+}
+
+.modal-result-info p {
+    font-size: 12px;
+    color: #6b7280;
+    white-space: pre-line;
+    line-height: 1.45;
+}
+
+.modal-result-price {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111827;
+    white-space: nowrap;
+}
+
+/* ==========================================================
+   11. MEDIA QUERIES (RESPONSIVIDADE ORGANIZADA)
+   ========================================================== */
+@media (min-width: 993px) {
+    .modal-busca-mobile {
+        align-items: center;
+    }
+
+    .modal-busca-content {
+        max-width: 580px;
+        height: auto;
+        max-height: 80vh;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        transform: scale(0.95);
+    }
+
+    .modal-busca-mobile.active .modal-busca-content {
+        transform: scale(1);
+    }
+
+    .modal-busca-body {
+        max-height: calc(80vh - 85px);
+    }
+}
+
+@media (max-width: 1024px) {
+    .gridTrofeus,
+    .gridMedalhas {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .header-actions-mobile {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-elements {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        max-width: 90%; /* <-- Alterado para porcentagem */
+        height: 100vh;
+        background-color: #ffffff;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+        padding: 25px;
+        transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        z-index: 1001;
+        overflow-y: auto;
+        box-shadow: -8px 0 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-elements.active {
+        right: 0;
+    }
+
+    .logo-menu-mobile {
+        display: flex;
+        width: 100%;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    .logo-menu-mobile img {
+        height: 36px;
+        object-fit: contain;
+    }
+
+    .menu {
+        background-color: transparent;
+        flex-direction: column;
+        padding: 0;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .menu li a {
+        display: block;
+        font-size: 22px;
+        padding-bottom: 6px;
+    }
+
+    .busca-container {
+        width: 100%;
+    }
+
+    .btnAgent {
+        width: 100%;
+        justify-content: center;
+        padding: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid #ffffff26;
+        padding: 11px 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.142);
+        top: 0;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    .logoImg img {
+        height: 31px;
+    }
+
+    .busca-container {
+        display: none;
+    }
+
+    .carrosselIntro {
+        display: none;
+    }
+
+    /* Banner responsivo ajustado */
+    .carrosselIntroS,
+    .carrosselSecundario {
+        display: flex;
+        height: 370px;
+        margin-top: 55px;
+    }
+
+    .carrosselIntroS .btnOrcamento,
+    .carrosselSecundario .btnOrcamento {
+        width: 68%;
+        justify-content: center;
+        bottom: 28px;
+        padding: 10px 20px;
+    }
+
+    .carrosselIntroS .btnOrcamento a,
+    .carrosselSecundario .btnOrcamento a {
+        justify-content: center;
+        font-size: 13px;
+    }
+
+    .inputBusca,
+    .modal-busca-input-box input {
+        font-size: 16px !important;
+    }
+
+    /* Carrossel 3D Mobile */
+    .carrossel-3d-wrapper {
+        height: 380px;
+    }
+
+    .carrossel-3d-item {
+        width: 210px;
+        height: 320px;
+        padding: 16px;
+    }
+
+    .carrossel-3d-item img {
+        width: 150px;
+        height: 150px;
+        margin: 30px auto;
+    }
+
+    .containerTrofeu-section,
+    .containerPlacas-section,
+    .containerMedalha-section,
+    .secao-tacas {
+        width: 90%;
+        padding: 0;
+        margin: 60px auto;
+    }
+
+    .gridTrofeus,
+    .gridMedalhas,
+    .carrosselTacas {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .cardTrofeu,
+    .medalha-item,
+    .cardTaca {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+        padding: 12px;
+    }
+
+    .cardTrofeu img {
+        height: 165px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-info p,
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-medalhas-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .medalhas-seletor {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .btn-filtro-medalha,
+    .btn-filtro-trofeu {
+        flex: 1;
+        text-align: center;
+    }
+
+    .containerTrofeu-section,
+    .containerMedalha-section {
+        width: 90%;
+        padding: 0;
+        margin: 50px auto;
+    }
+
+    .gridTrofeus,
+    .gridMedalhas {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        width: 100%;
+    }
+
+    .cardTrofeu,
+    .medalha-item {
+        padding: 10px;
+    }
+
+    .cardTrofeu h3,
+    .cardMedalha h4 {
+        font-size: 13px;
+    }
+}
